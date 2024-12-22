@@ -4,11 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import PriceView from "./PriceView";
+import AddToCart from "./AddToCart";
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const isOutOfStock = product?.stock === 0;
+
   return (
     <div className="group text-sm rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700 ">
       <div
@@ -17,19 +20,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
       overflow-hidden"
       >
         {product?.image && (
-          <Link href={`/product`}>
+          <Link href={`/product/${product?.slug?.current}`}>
             <Image
               src={urlFor(product?.image[1]).url()}
               alt="ProductImage"
               width={500}
               height={500}
               priority
-              className="w-full h-72 object-cover overflow-hidden hover:scale-105 transition-transform duration-300"
+              className={`w-full h-72 object-cover overflow-hidden hover:scale-105 transition-transform duration-300 ${isOutOfStock ? "grayscale blur-sm" : ""}`}
             />
           </Link>
         )}
       </div>
-      <div className="m-4">
+      <div className="m-2 p-2">
         <h2 className="text-lg truncate overflow-hidden font-semibold">
           {product?.name}
         </h2>
@@ -39,6 +42,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           discount={product?.discount ?? 0}
           className="mt-2"
         />
+        <AddToCart product={product} />
       </div>
     </div>
   );

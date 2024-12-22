@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
 interface PriceViewProps {
-  price: number;
-  discount: number;
+  price: number | undefined;
+  discount: number | undefined;
   className?: string;
 }
 
@@ -12,9 +12,9 @@ const PriceView = ({ price, discount, className }: PriceViewProps) => {
       <div className="text-xl font-semibold text-gray-800 dark:text-gray-100">
         ${price}
       </div>
-      {discount > 0 && (
+      {discount !== undefined && discount > 0 && (
         <div className="text-sm text-gray-500 dark:text-gray-400 line-through ml-2">
-          ${price + discount}
+          ${price !== undefined ? price + (discount ?? 0) : 0}
         </div>
       )}
     </div>
