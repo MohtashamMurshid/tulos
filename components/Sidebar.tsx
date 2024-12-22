@@ -1,7 +1,7 @@
 "use client";
 import React, { FC } from "react";
 import Logo from "./Logo";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { X } from "lucide-react";
 import { HeaderData } from "@/constants";
 import Link from "next/link";
